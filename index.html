@@ -77,7 +77,7 @@
                     Se preferir falar comigo pelo whatsapp basta clicar no botão abaixo
                 </p>
                 <p class="mb-2">
-                    <a href="https://wa.me/5511970133902?text=Oi Ricardo, vi seu anuncio e tenho interesse em realizar um simulação!"
+                    <a href="https://wa.me/5511966205586?text=Oi Ricardo, vi seu anuncio e tenho interesse em realizar um simulação!"
                         target="_blank" class="m-0">
                         <img src="assets/images/whats.png" class="img-fluid" alt="" height="130" width="130">
                     </a>
@@ -108,7 +108,7 @@
     <script src="assets/js/script.js"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(async function () {
             $('#phone').mask('(00) 0000-00009', {
                 onKeyPress: function (val, e, field, options) {
                     const mask = val.length > 14 ? '(00) 00000-0000' : '(00) 0000-00009';
@@ -117,21 +117,18 @@
             });
         })
 
-
-        $("#name").on("keyup", function () {
-            $("#link_whatsapp").attr("href", `https://wa.me/5511970133902?text=Olá,meu nome é ${$(this).val()}, gostaria de realizar uma simulação.`);
-        });
-
-        $("#link_whatsapp").on("click", function (e) {
-            if ($("#name").val().trim() == "") {
-                e.preventDefault();
-
-                Swal.fire({
-                    text: "Por favor preencha o nome antes de ir para o WhatsApp.",
-                    icon: "error"
-                });
-            }
-        });
+        async function getCampaign() {
+            return await fetch('config.json') // Caminho para o arquivo JSON
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro ao carregar o JSON: ${response.status}`);
+                    }
+                    const result = response.json(); // Converte para objeto JS
+                }).then(data => {
+                    return data.campanha;
+                })
+                .catch(error => console.error('Erro:', error));
+        }
 
         $("#form").on("submit", async function (e) {
             e.preventDefault();
@@ -144,7 +141,7 @@
                 return;
             }
 
-            if ($("#phone").val().trim() == "" || $("#phone").val().trim().length < 13) {
+            if ($("#phone").val().trim() == "" || $("#phone").val().trim().length <= 13) {
                 Swal.error({
                     text: "Por favor preencha o telefone antes de solicitar a simulação."
                 });
@@ -154,7 +151,7 @@
 
             Swal.wait();
 
-            const data = await $("#form").serializeArray().reduce((acc, item) => {
+            const data = $("#form").serializeArray().reduce((acc, item) => {
                 acc[item.name] = item.value;
                 return acc;
             }, {});
@@ -168,8 +165,9 @@
                     return result;
                 })
 
-            await $.ajax({
-                url: "https://hook.us2.make.com/44ajmd83sgjya6pcrmwzz1unwsx1oe3l",
+            $.ajax({
+                url: "https://hook.eu2.make.com/ymuujkpkqf939jcfgsr2rfaqxl8g0gt5", //homol make mateus 
+                // url: "https://hook.us2.make.com/44ajmd83sgjya6pcrmwzz1unwsx1oe3l", // prod make ricardo
                 data: {
                     ...data,
                     campaign: campaign.campanha
