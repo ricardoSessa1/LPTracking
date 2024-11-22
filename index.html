@@ -16,7 +16,7 @@
 <body>
 
     <div id="content" class="p-3 bg-white">
-        <div class="container-fluid vem-esquerda"> 
+        <div class="container-fluid vem-esquerda">
             <div class="container d-flex align-items-center justify-content-center">
                 <div class="container-wrapper">
                     <div class="d-flex align-items-center justify-content-center gap-3">
@@ -85,14 +85,14 @@
                     <span class="fs-5 outfit-600">
                         Me siga nas redes sociais para mais ofertas e novidades!
                     </span>
-                    <div class="d-flex align-items-center justify-content-center gap-4">
-                        <a href="https://www.instagram.com/comericonsorcios_sessa" class="social-media" target="_blank">
-                            <i class="fa fa-instagram fa-2x" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://www.facebook.com/ricardo.sessajkconsorcios" class="social-media" target="_blank">
-                            <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
-                        </a>
-                    </div>
+                <div class="d-flex align-items-center justify-content-center gap-4">
+                    <a href="https://www.instagram.com/comericonsorcios_sessa" class="social-media" target="_blank">
+                        <i class="fa fa-instagram fa-2x" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.facebook.com/ricardo.sessajkconsorcios" class="social-media" target="_blank">
+                        <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
+                    </a>
+                </div>
 
                 </p>
 
@@ -132,7 +132,7 @@
             }
         });
 
-        $("#form").on("submit", function (e) {
+        $("#form").on("submit",async function (e) {
             e.preventDefault();
 
             if ($("#name").val().trim() == "") {
@@ -153,16 +153,25 @@
 
             Swal.wait();
 
-            const data = $("#form").serializeArray().reduce((acc, item) => {
+            const data = await $("#form").serializeArray().reduce((acc, item) => {
                 acc[item.name] = item.value;
                 return acc;
             }, {});
 
-            $.ajax({
+            const campaign = await fetch('config.json') // Caminho para o arquivo JSON
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro ao carregar o JSON: ${response.status}`);
+                    }
+                    const result = response.json(); // Converte para objeto JS
+                    return result;
+                })
+
+            await $.ajax({
                 url: "https://hook.us2.make.com/44ajmd83sgjya6pcrmwzz1unwsx1oe3l",
                 data: {
                     ...data,
-                    campaign: "VW - Polo"
+                    campaign: campaign.campanha
                 },
                 method: "POST",
                 success: function (response) {
