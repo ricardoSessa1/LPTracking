@@ -15,18 +15,18 @@
 
 <body>
 
-    <div id="content" class="p-3 bg-white">
-        <div class="container-fluid vem-esquerda">
-            <div class="container d-flex align-items-center justify-content-center">
-                <div class="container-wrapper">
-                    <div class="d-flex align-items-center justify-content-center gap-3">
-                        <figure>
-                            <img src="assets/images/anuncio.jpg" alt="Carro sedan preto em um showroom"
-                                class=" rounded image-wrapper">
-                            <figcaption></figcaption>
-                        </figure>
-                    </div>
+    <div id="content" class="bg-white">
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="container-wrapper">
+                <div class="d-flex align-items-center justify-content-center">
+                    <figure>
+                        <img src="assets/images/anuncio.jpg" alt="Carro sedan preto em um showroom"
+                            class="image-wrapper">
+                        <figcaption></figcaption>
+                    </figure>
+                </div>
 
+                <div class="px-3">
                     <form id="form">
                         <h2 class="text-center mb-3 outfit-700">Iniciar Simulação Grátis</h2>
                         <div class="mb-2 mb-lg-3">
@@ -46,6 +46,7 @@
                             estão
                             seguras, não serão compartilhadas!</span>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -132,7 +133,7 @@
             }
         });
 
-        $("#form").on("submit",async function (e) {
+        $("#form").on("submit", async function (e) {
             e.preventDefault();
 
             if ($("#name").val().trim() == "") {
