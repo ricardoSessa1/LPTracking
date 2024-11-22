@@ -77,7 +77,7 @@
                     Se preferir falar comigo pelo whatsapp basta clicar no botão abaixo
                 </p>
                 <p class="mb-2">
-                    <a href="https://wa.me/5511970133902?text=Oi Ricardo, vi seu anuncio e tenho interesse em realizar um simulação!"
+                    <a href="https://wa.me/5511966205586?text=Oi Ricardo, vi seu anuncio e tenho interesse em realizar um simulação!"
                         target="_blank" class="m-0">
                         <img src="assets/images/whats.png" class="img-fluid" alt="" height="130" width="130">
                     </a>
@@ -116,22 +116,6 @@
                 }
             });
         })
-
-
-        $("#name").on("keyup", function () {
-            $("#link_whatsapp").attr("href", `https://wa.me/5511970133902?text=Olá,meu nome é ${$(this).val()}, gostaria de realizar uma simulação.`);
-        });
-
-        $("#link_whatsapp").on("click", function (e) {
-            if ($("#name").val().trim() == "") {
-                e.preventDefault();
-
-                Swal.fire({
-                    text: "Por favor preencha o nome antes de ir para o WhatsApp.",
-                    icon: "error"
-                });
-            }
-        });
 
         $("#form").on("submit", async function (e) {
             e.preventDefault();
